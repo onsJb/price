@@ -1,0 +1,649 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "APIs For Thrift Store",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/forgot-password": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Forgot password",
+                "operationId": "37929c5357e2918c3d1d0985545011ae",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password reset link sent successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "responseStatus": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "responseMessage": {
+                                            "type": "string",
+                                            "example": "Lien envoyé!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 400
+                                        },
+                                        "responseStatus": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "responseMessage": {
+                                            "type": "string",
+                                            "example": "Lien non envoyé!"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Please wait before retrying."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "responseStatus": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "responseMessage": {
+                                            "type": "string",
+                                            "example": "Veuillez vérifier l'adresse e-mail!"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "The email field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "An error occurred",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "responseStatus": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "responseMessage": {
+                                            "type": "string",
+                                            "example": "Une erreur est survenue!"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "The email field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/reset-password": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Reset password",
+                "operationId": "8128315ea5ef2b62b30126390e8043f0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "token",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "token": {
+                                        "type": "string",
+                                        "example": "token_here"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "new_password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "new_password_confirmation"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password reset successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "responseStatus": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "responseMessage": {
+                                            "type": "string",
+                                            "example": "Mot de passe réinitialisé avec succès!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 400
+                                        },
+                                        "responseStatus": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "responseMessage": {
+                                            "type": "string",
+                                            "example": "Veuillez vérifier le mot de passe!"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "responseStatus": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "responseMessage": {
+                                            "type": "string",
+                                            "example": "Veuillez vérifier le mot de passe!"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "password": [
+                                                    "The password confirmation does not match."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "An error occurred",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "responseStatus": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "responseMessage": {
+                                            "type": "string",
+                                            "example": "Une erreur est survenue!"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register a new user",
+                "operationId": "2f25885f3b6f61ca11724ec302d2e439",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "gender",
+                                    "birth_date",
+                                    "phone_number",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "example": "male"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "example": "123456789"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "responseStatus": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "responseMessage": {
+                                            "type": "string",
+                                            "example": "Utilisateur ajouté!"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "responseStatus": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "responseMessage": {
+                                            "type": "string",
+                                            "example": "Veuillez vérifier les champs!"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User login",
+                "operationId": "0fc9610184083ac6dddab2c63139225a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful login",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Utilisateur connecté!"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid email",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Adresse mail invalide!"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid password or validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Le mot de passe est incorrect!"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User logout",
+                "operationId": "67d5147477c548bfbc3f982833bbc7bd",
+                "responses": {
+                    "200": {
+                        "description": "Successful logout",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "responseCode": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Utilisateur déconnecté!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "title": "User",
+                "description": "User model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "example": "Doe"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "example": "male"
+                    },
+                    "birth_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "1990-01-01"
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "example": "123456789"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "john.doe@example.com"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
